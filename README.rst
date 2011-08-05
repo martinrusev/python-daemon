@@ -26,7 +26,7 @@ You can use it like any other UNIX daemon with
 
 
     ::
-        ``invoke-rc.d daemonexample start|stop|restart``
+    ``invoke-rc.d daemonexample start|stop|restart``
 
 
 =================
