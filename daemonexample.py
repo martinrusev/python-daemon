@@ -9,11 +9,11 @@ class YourDaemon(Daemon):
 	def run(self):
 		# Define your tasks here
 		# Anything written in python is permitted
-		# For example you can clean up your server logs every hours
+		# For example you can clean up your server logs every hour
 			
 		while True:
 			# The daemon will repeat your tasks according to this variable
-			# it's in second so 60 is 1 minute, 3600 is 1 hours, etc. 
+			# it's in second so 60 is 1 minute, 3600 is 1 hour, etc. 
 			time.sleep(60)
 
 if __name__ == "__main__":
