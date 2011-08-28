@@ -2,7 +2,6 @@
 from daemon import Daemon
 import sys
 import time
-import traceback
 
 PIDFILE = '/var/run/yourdaemon.pid'
 
@@ -28,7 +27,7 @@ if __name__ == "__main__":
 			try:
 				daemon.start()
 			except:
-				traceback.print_exc(file=sys.stdout)
+				pass
 		
 		elif 'stop' == sys.argv[1]:
 			print "Stopping ..."
