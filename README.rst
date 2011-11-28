@@ -22,10 +22,15 @@ to create cron like tasks in python.
 =========
 
 
-You can use it like any other UNIX daemon with
+You can use it like any other UNIX daemon. On Linux
 
 
     ``invoke-rc.d daemonexample start|stop|restart``
+
+And on MacOS
+
+    ``python daemonexample.py start|stop|restart``
+
 
 
 =================
