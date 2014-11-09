@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 import os
 
 def read(filename):
@@ -20,7 +20,7 @@ setup(
     author_email='martinrusev@live.com',
     url='https://github.com/martinrusev/python-daemon',
     license='BSD',
-    packages=find_packages(),
+    py_modules=['daemon'],
     zip_safe=False,
     install_requires=[],
     include_package_data=True,
