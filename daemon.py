@@ -12,10 +12,10 @@ class Daemon(object):
 	startmsg = "started with pid %s"
 	
 	def __init__(self, pidfile, stdin='/dev/null', stdout='/dev/null', stderr='/dev/null'):
-			self.stdin = stdin
-			self.stdout = stdout
-			self.stderr = stderr
-			self.pidfile = pidfile
+		self.stdin = stdin
+		self.stdout = stdout
+		self.stderr = stderr
+		self.pidfile = pidfile
 
 	def daemonize(self):
 		"""
@@ -24,16 +24,16 @@ class Daemon(object):
 		http://www.erlenstar.demon.co.uk/unix/faq_2.html#SEC16
 		"""
 		try: 
-				pid = os.fork() 
-				if pid > 0:
-						# exit first parent
-						sys.exit(0) 
+			pid = os.fork() 
+			if pid > 0:
+				# exit first parent
+				sys.exit(0) 
 		except OSError, e: 
-				sys.stderr.write("fork #1 failed: %d (%s)\n" % (e.errno, e.strerror))
-				sys.exit(1)
+			sys.stderr.write("fork #1 failed: %d (%s)\n" % (e.errno, e.strerror))
+			sys.exit(1)
 
 		# decouple from parent environment
-		os.chdir(".") 
+		os.chdir("/") 
 		os.setsid() 
 		os.umask(0) 
 
@@ -69,7 +69,10 @@ class Daemon(object):
 		
 
 	def delpid(self):
-		os.remove(self.pidfile)
+		try:
+			os.remove(self.pidfile)
+		except OSError:
+			pass
 
 	def start(self):
 		"""
@@ -82,15 +85,30 @@ class Daemon(object):
 			pf.close()
 		except IOError:
 			pid = None
+		except SystemExit:
+			pid = None
 
 		if pid:
 			message = "pidfile %s already exist. Daemon already running?\n"
 			sys.stderr.write(message % self.pidfile)
 			sys.exit(1)
 
+		
 		# Start the daemon
+
 		self.daemonize()
 		self.run()
+
+	def get_pid(self):
+		try:
+			pf = file(self.pidfile, 'r')
+			pid = int(pf.read().strip())
+			pf.close()
+		except IOError:
+			pid = None
+		except SystemExit:
+			pid = None
+		return pid
 
 	def stop(self):
 		"""
@@ -98,11 +116,11 @@ class Daemon(object):
 		"""
 		# Get the pid from the pidfile
 		try:
-				pf = file(self.pidfile,'r')
-				pid = int(pf.read().strip())
-				pf.close()
+			pf = file(self.pidfile,'r')
+			pid = int(pf.read().strip())
+			pf.close()
 		except IOError:
-				pid = None
+			pid = None
 
 		if not pid:
 			message = "pidfile %s does not exist. Daemon not running?\n"
