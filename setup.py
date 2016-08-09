@@ -19,7 +19,7 @@ setup(
     author='Martin Rusev',
     author_email='martinrusev@live.com',
     url='https://github.com/martinrusev/python-daemon',
-    license='BSD',
+    license='MIT',
     py_modules=['daemon'],
     zip_safe=False,
     install_requires=[],
